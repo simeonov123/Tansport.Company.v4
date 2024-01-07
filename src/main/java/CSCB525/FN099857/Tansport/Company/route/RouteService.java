@@ -20,7 +20,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -46,10 +45,10 @@ public class RouteService {
     /**
      * Constructor for RouteService.
      *
-     * @param routeRepository   The repository for Route entities.
-     * @param companyService    The service for managing Company entities.
-     * @param employeeService   The service for managing Employee entities.
-     * @param clientService     The service for managing Client entities.
+     * @param routeRepository The repository for Route entities.
+     * @param companyService  The service for managing Company entities.
+     * @param employeeService The service for managing Employee entities.
+     * @param clientService   The service for managing Client entities.
      */
     public RouteService(RouteRepository routeRepository, CompanyService companyService, EmployeeService employeeService, ClientService clientService) {
         this.routeRepository = routeRepository;
@@ -297,7 +296,7 @@ public class RouteService {
 
             // Save the workbook content to a file
             String desktopPath = System.getProperty("user.home") + "/Desktop/";
-            String fileName = "routes_export.xlsx";
+            String fileName = "routes_export_company_id_" + companyId + ".xlsx";
             String filePath = desktopPath + fileName;
 
             try (FileOutputStream fileOutputStream = new FileOutputStream(filePath)) {

@@ -1,7 +1,6 @@
 package CSCB525.FN099857.Tansport.Company;
 
 import CSCB525.FN099857.Tansport.Company.transport.Passengers;
-import CSCB525.FN099857.Tansport.Company.transport.Transport;
 import CSCB525.FN099857.Tansport.Company.transport.TransportService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +17,11 @@ public class TransportTest {
 
     @Transactional
     @Test
-    void testCreatingTransport(){
+    void testCreatingTransport() {
         Passengers passengers = new Passengers();
         passengers.setNumberOfPassengers(12);
 
-        passengers  = (Passengers) transportService.createTransport(passengers);
+        passengers = (Passengers) transportService.createTransport(passengers);
 
         assertEquals(12, passengers.getNumberOfPassengers());
     }
@@ -30,11 +29,11 @@ public class TransportTest {
 
     @Transactional
     @Test
-    void testUpdatingTransport(){
+    void testUpdatingTransport() {
         Passengers passengers = new Passengers();
         passengers.setNumberOfPassengers(12);
 
-        passengers  = (Passengers) transportService.createTransport(passengers);
+        passengers = (Passengers) transportService.createTransport(passengers);
 
         passengers.setNumberOfPassengers(6);
 
@@ -45,11 +44,11 @@ public class TransportTest {
 
     @Transactional
     @Test
-    void testDeleteTransport(){
+    void testDeleteTransport() {
         Passengers passengers = new Passengers();
         passengers.setNumberOfPassengers(12);
 
-        passengers  = (Passengers) transportService.createTransport(passengers);
+        passengers = (Passengers) transportService.createTransport(passengers);
 
         transportService.deleteTransportById(passengers.getId());
 
@@ -59,11 +58,11 @@ public class TransportTest {
 
     @Transactional
     @Test
-    void testGetTransportById(){
+    void testGetTransportById() {
         Passengers passengers = new Passengers();
         passengers.setNumberOfPassengers(12);
 
-        passengers  = (Passengers) transportService.createTransport(passengers);
+        passengers = (Passengers) transportService.createTransport(passengers);
 
         passengers = (Passengers) transportService.getTransportById(passengers.getId());
         assertEquals(12, passengers.getNumberOfPassengers());

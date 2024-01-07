@@ -14,8 +14,6 @@ import CSCB525.FN099857.Tansport.Company.route.Route;
 import CSCB525.FN099857.Tansport.Company.route.RouteService;
 import CSCB525.FN099857.Tansport.Company.transport.Commodity;
 import CSCB525.FN099857.Tansport.Company.transport.TransportService;
-import CSCB525.FN099857.Tansport.Company.util.DriverProfitDTO;
-import CSCB525.FN099857.Tansport.Company.util.DriverRouteDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +24,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -215,8 +212,6 @@ class CompanyServiceIntegrationTest {
             assertEquals(1, updatedCompanyList.size(), "Company list length doesn't match the expected result");
         }
     }
-
-
 
 
     @Transactional
@@ -605,16 +600,6 @@ class CompanyServiceIntegrationTest {
         assertEquals(10, routeList.size());
 
     }
-
-
-
-
-
-
-
-
-
-
 
 
 }

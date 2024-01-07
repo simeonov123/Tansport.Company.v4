@@ -70,9 +70,10 @@ public class MotorisedTransportVehicleService {
 
         motorisedTransportVehicleRepository.deleteAllByIdIn(ids);
     }
+
     /**
      * Creates a new motorized transport vehicle and saves it to the database.
-     *
+     * <p>
      * This method takes a MotorisedTransportVehicle object as input, representing the details
      * of the vehicle, and persists it in the underlying database using the repository.
      *
@@ -90,18 +91,17 @@ public class MotorisedTransportVehicleService {
     }
 
 
-
     /**
      * Deletes a motorized transport vehicle from the database based on its unique identifier.
-     *
+     * <p>
      * This method takes the identifier (ID) of a motorized transport vehicle as input,
      * searches for the corresponding vehicle in the database, and deletes it if found.
      *
      * @param id The unique identifier of the motorized transport vehicle to be deleted.
      * @throws EmptyResultDataAccessException If no vehicle with the specified ID is found in the database.
-     *                                      This exception is thrown by Spring Data when attempting to delete
-     *                                      a non-existing entity.
-     * @throws IllegalArgumentException      If the provided ID is null.
+     *                                        This exception is thrown by Spring Data when attempting to delete
+     *                                        a non-existing entity.
+     * @throws IllegalArgumentException       If the provided ID is null.
      */
     public void deleteVehicleById(Integer id) {
         if (id == null) {

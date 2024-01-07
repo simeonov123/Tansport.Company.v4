@@ -4,6 +4,7 @@ import CSCB525.FN099857.Tansport.Company.client.Client;
 import CSCB525.FN099857.Tansport.Company.employee.Employee;
 import CSCB525.FN099857.Tansport.Company.mtv.MotorisedTransportVehicle;
 import CSCB525.FN099857.Tansport.Company.route.Route;
+import CSCB525.FN099857.Tansport.Company.transport.Transport;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,6 +18,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Represents a transport company entity with attributes such as company name, creation date, employees, motorized transport vehicles (MTVs),
  * routes, clients, and budget.
@@ -86,6 +88,10 @@ public class Company {
     @NotNull(message = "Budget must not be null")
     private BigDecimal budget = BigDecimal.ZERO;
 
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Transport> transports = new ArrayList<>();
+
+
     /**
      * Overrides the default toString method to provide a customized string representation of the company.
      *
@@ -102,6 +108,8 @@ public class Company {
                 ", routes=" + routes +
                 ", clientsList=" + clientsList.size() +
                 ", budget=" + budget +
+                ", transports=" + transports.size() +
                 '}';
     }
+
 }

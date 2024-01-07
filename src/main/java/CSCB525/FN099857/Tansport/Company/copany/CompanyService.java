@@ -7,8 +7,6 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;

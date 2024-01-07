@@ -2,6 +2,7 @@ package CSCB525.FN099857.Tansport.Company.client;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
 /**
  * Repository interface for managing client entities in the transport company.
  * Extends JpaRepository to provide CRUD operations for the Client entity.

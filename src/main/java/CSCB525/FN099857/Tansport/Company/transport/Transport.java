@@ -36,7 +36,8 @@ public class Transport {
     /**
      * The company associated with the transport.
      */
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "company_id")
     private Company company;
 
     /**

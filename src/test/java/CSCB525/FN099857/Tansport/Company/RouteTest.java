@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 
@@ -50,7 +49,6 @@ public class RouteTest {
 
     @Autowired
     private TransportService transportService;
-
 
 
     //приходите на компанията за определен период от време
@@ -231,8 +229,6 @@ public class RouteTest {
                 "Profit for the period should match the expected profit");
 
     }
-
-
 
 
     @Test
@@ -937,7 +933,6 @@ public class RouteTest {
 
         assertEquals(3, driverRouteDtoList.size(), "List size not matched.");
     }
-
 
 
 }

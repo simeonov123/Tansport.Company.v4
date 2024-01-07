@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
+
 /**
  * Represents a client entity in the transport company.
  * Clients are associated with multiple companies and have attributes such as name, phone number, and budget.

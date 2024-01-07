@@ -21,7 +21,6 @@ package CSCB525.FN099857.Tansport.Company.employee;
  * - DE: Buses with trailer
  * - TKT: Tractors (short term)
  * - TTM: Tractors (long term)
- *
  */
 public enum DriversLicense {
     AM, A1, A2, A, B1, B, BE, C1, C1E, C, CE, D1, D1E, D, DE, TKT, TTM

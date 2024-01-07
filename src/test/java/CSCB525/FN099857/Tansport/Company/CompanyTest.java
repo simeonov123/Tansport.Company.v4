@@ -64,7 +64,7 @@ class CompanyTest {
     //delete company
     @Transactional
     @Test
-    void testDeleteCompany(){
+    void testDeleteCompany() {
         //Create company
         // 1A. Creating a company
         Company company = new Company();
@@ -83,11 +83,11 @@ class CompanyTest {
     //get all companies by ascending order
     @Transactional
     @Test
-    void testGetAllCompaniesByAscendingOrder(){
+    void testGetAllCompaniesByAscendingOrder() {
         //create companies
         Random random = new Random();
 
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             // 1A. Creating a company
             Company company = new Company();
 
@@ -106,11 +106,11 @@ class CompanyTest {
         List<Company> allCompaniesInAscendingBudgetOrder = companyService.getAllCompaniesInAscendingBudgetOrder();
 
 
-        for (int i = 0; i < allCompaniesInAscendingBudgetOrder.size(); i++){
-            if (i+1 < allCompaniesInAscendingBudgetOrder.size()){
+        for (int i = 0; i < allCompaniesInAscendingBudgetOrder.size(); i++) {
+            if (i + 1 < allCompaniesInAscendingBudgetOrder.size()) {
                 boolean result = allCompaniesInAscendingBudgetOrder.get(i).getBudget().compareTo(allCompaniesInAscendingBudgetOrder.get(i + 1).getBudget()) <= 0;
                 assertTrue(result, "List not sorted correctly.");
-            }else{
+            } else {
                 boolean result = allCompaniesInAscendingBudgetOrder.get(i).getBudget().compareTo(allCompaniesInAscendingBudgetOrder.get(0).getBudget()) > 0;
                 assertTrue(result, "List not sorted correctly.");
             }
@@ -120,11 +120,11 @@ class CompanyTest {
 
     @Transactional
     @Test
-    void testGetAllCompaniesByDescendingOrder(){
+    void testGetAllCompaniesByDescendingOrder() {
         //create companies
         Random random = new Random();
 
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             // 1A. Creating a company
             Company company = new Company();
 
@@ -143,11 +143,11 @@ class CompanyTest {
         List<Company> allCompaniesInAscendingBudgetOrder = companyService.getAllCompaniesInDescendingBudgetOrder();
 
 
-        for (int i = 0; i < allCompaniesInAscendingBudgetOrder.size(); i++){
-            if (i+1 < allCompaniesInAscendingBudgetOrder.size()){
+        for (int i = 0; i < allCompaniesInAscendingBudgetOrder.size(); i++) {
+            if (i + 1 < allCompaniesInAscendingBudgetOrder.size()) {
                 boolean result = allCompaniesInAscendingBudgetOrder.get(i).getBudget().compareTo(allCompaniesInAscendingBudgetOrder.get(i + 1).getBudget()) >= 0;
                 assertTrue(result, "List not sorted correctly.");
-            }else{
+            } else {
                 boolean result = allCompaniesInAscendingBudgetOrder.get(i).getBudget().compareTo(allCompaniesInAscendingBudgetOrder.get(0).getBudget()) < 0;
                 assertTrue(result, "List not sorted correctly.");
             }
@@ -157,11 +157,11 @@ class CompanyTest {
 
     @Transactional
     @Test
-    void testGetAllCompaniesSortedByName(){
+    void testGetAllCompaniesSortedByName() {
         //create companies
         Random random = new Random();
 
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             // 1A. Creating a company
             Company company = new Company();
 
@@ -396,7 +396,6 @@ class CompanyTest {
                 .extracting(Company::getCompanyName)
                 .isEqualTo(randomCompanyName);
     }
-
 
 
 }

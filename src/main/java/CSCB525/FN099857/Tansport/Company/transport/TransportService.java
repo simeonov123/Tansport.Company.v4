@@ -33,7 +33,7 @@ public class TransportService {
 
     /**
      * Updates an existing transport entity in the data store.
-     *
+     * <p>
      * This method takes an updated transport entity and saves it to the database. The provided transport entity
      * should have a valid ID that corresponds to existing transport in the database.
      *
@@ -57,15 +57,15 @@ public class TransportService {
 
     /**
      * Deletes a transport entity from the data store based on its unique identifier.
-     *
+     * <p>
      * This method takes the identifier (ID) of a transport entity as input, searches for the corresponding
      * transport in the database, and deletes it if found.
      *
      * @param transportId The unique identifier of the transport entity to be deleted.
      * @throws EmptyResultDataAccessException If no transport with the specified ID is found in the database.
-     *                                      This exception is thrown by Spring Data when attempting to delete
-     *                                      a non-existing entity.
-     * @throws IllegalArgumentException      If the provided transport ID is null.
+     *                                        This exception is thrown by Spring Data when attempting to delete
+     *                                        a non-existing entity.
+     * @throws IllegalArgumentException       If the provided transport ID is null.
      */
     public void deleteTransportById(Integer transportId) {
         if (transportId == null) {
@@ -78,7 +78,7 @@ public class TransportService {
 
     /**
      * Retrieves a transport entity from the data store based on its unique identifier.
-     *
+     * <p>
      * This method takes the identifier (ID) of a transport entity as input, searches for the corresponding
      * transport in the database, and returns it if found.
      *
