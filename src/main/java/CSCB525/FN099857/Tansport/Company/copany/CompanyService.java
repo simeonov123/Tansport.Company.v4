@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
@@ -44,10 +46,11 @@ public class CompanyService {
      * Updates an existing company with the provided data.
      *
      * @param company The company to be updated.
+     * @return The updated company.
      */
     @Transactional
-    public void updateCompany(@Valid Company company) {
-        companyRepository.save(company);
+    public Company updateCompany(@Valid Company company) {
+        return companyRepository.save(company);
     }
 
     /**
@@ -145,7 +148,7 @@ public class CompanyService {
      *
      * @return A list of companies.
      */
-    List<Company> getAllCompaniesSortedByName() {
+    public List<Company> getAllCompaniesSortedByName() {
         return companyRepository.findAll(Sort.by(Sort.Direction.ASC, "companyName"));
     }
 
@@ -154,7 +157,7 @@ public class CompanyService {
      *
      * @return A list of companies.
      */
-    List<Company> getAllCompaniesSortedByRevenue() {
+    public List<Company> getAllCompaniesSortedByRevenue() {
         return companyRepository.findAll(Sort.by(Sort.Direction.DESC, "budget"));
     }
 
@@ -164,7 +167,7 @@ public class CompanyService {
      * @param companyName The partial or complete name of the company for filtering.
      * @return A list of companies.
      */
-    List<Company> getCompaniesByName(String companyName) {
+    public List<Company> getCompaniesByName(String companyName) {
         return companyRepository.findByCompanyNameContainingIgnoreCase(companyName);
     }
 
@@ -174,7 +177,7 @@ public class CompanyService {
      * @param revenue The minimum revenue value for filtering.
      * @return A list of companies.
      */
-    List<Company> getCompaniesByRevenueGreaterThan(@NotNull BigDecimal revenue) {
+    public List<Company> getCompaniesByRevenueGreaterThan(@NotNull BigDecimal revenue) {
         return companyRepository.findByBudgetGreaterThan(revenue);
     }
 }

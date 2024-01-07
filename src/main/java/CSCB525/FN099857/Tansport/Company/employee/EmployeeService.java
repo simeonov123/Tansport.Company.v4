@@ -34,18 +34,21 @@ public class EmployeeService {
      * Creates a new employee by saving it to the repository.
      *
      * @param employee The employee to be created. Should be a valid, non-null, and properly annotated instance.
+     * @return created employee
      */
-    public void createEmployee(@Valid Employee employee) {
+    public Employee createEmployee(@Valid Employee employee) {
         employeeRepository.save(employee);
+        return employee;
     }
 
     /**
      * Updates an existing employee by saving the modified information to the repository.
      *
      * @param employee The employee to be updated. Should be a valid, non-null, and properly annotated instance.
+    * @return updated employee
      */
-    public void updateEmployee(@Valid Employee employee) {
-        employeeRepository.save(employee);
+    public Employee updateEmployee(@Valid Employee employee) {
+        return employeeRepository.save(employee);
     }
 
     /**

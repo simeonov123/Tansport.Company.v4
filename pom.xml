@@ -114,6 +114,33 @@
             <artifactId>hibernate-validator</artifactId>
             <version>7.0.2.Final</version>
         </dependency>
+
+        <!-- Apache POI for working with Excel files -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.0.0</version> <!-- Use the latest version available -->
+        </dependency>
+        <!-- Apache POI for handling OOXML (Office Open XML) file formats -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.0.0</version> <!-- Use the same version as poi -->
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/commons-collections/commons-collections -->
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.7.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>

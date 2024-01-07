@@ -13,8 +13,16 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -248,5 +256,55 @@ public class RouteService {
                     return new DriverProfitDTO(employee, entry.getValue());
                 })
                 .collect(Collectors.toList());
+    }
+
+
+    @Transactional
+    public void exportRoutesToExcel(Integer companyId) throws IOException {
+        List<Route> allRoutesForCompany = getAllRoutesByCompanyId(companyId);
+
+        try (Workbook workbook = new XSSFWorkbook()) {
+            Sheet sheet = workbook.createSheet("Routes");
+
+            // Write the header
+            Row headerRow = sheet.createRow(0);
+            String[] headerData = {"Route_Id", "Company_Name", "Driver_First_Name", "Driver_Last_Name", "Driver_Phone_Number", "Client_Name", "Client_Phone_Number",
+                    "Departure_Address", "Arrival_Address", "Departure_Time", "Arrival_Time", "Distance", "Price"};
+            for (int i = 0; i < headerData.length; i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(headerData[i]);
+            }
+
+            // Write each route to the Excel file
+            int rowNum = 1;
+            for (Route route : allRoutesForCompany) {
+                Row row = sheet.createRow(rowNum++);
+
+                row.createCell(0).setCellValue(route.getId());
+                row.createCell(1).setCellValue(route.getCompany().getCompanyName());
+                row.createCell(2).setCellValue(route.getDriver().getFirstName());
+                row.createCell(3).setCellValue(route.getDriver().getLastname());
+                row.createCell(4).setCellValue(route.getDriver().getPhoneNumber());
+                row.createCell(5).setCellValue(route.getClient().getName());
+                row.createCell(6).setCellValue(route.getClient().getPhoneNumber());
+                row.createCell(7).setCellValue(route.getDepartureAddress());
+                row.createCell(8).setCellValue(route.getArrivalAddress());
+                row.createCell(9).setCellValue(route.getDepartureTime().toString());
+                row.createCell(10).setCellValue(route.getArrivalTime().toString());
+                row.createCell(11).setCellValue(route.getDistance());
+                row.createCell(12).setCellValue(route.getRoutePrice().toString());
+            }
+
+            // Save the workbook content to a file
+            String desktopPath = System.getProperty("user.home") + "/Desktop/";
+            String fileName = "routes_export.xlsx";
+            String filePath = desktopPath + fileName;
+
+            try (FileOutputStream fileOutputStream = new FileOutputStream(filePath)) {
+                workbook.write(fileOutputStream);
+            }
+
+            System.out.println("Excel file exported to: " + filePath);
+        }
     }
 }
