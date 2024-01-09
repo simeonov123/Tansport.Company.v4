@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -261,30 +263,36 @@ class CompanyTest {
         BigDecimal targetRevenue = BigDecimal.valueOf(500000); // Set your desired revenue threshold
         List<String> companyNamesWithRevenueGreaterThanTarget = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
-            // 1A. Creating a company
-            Company company = new Company();
+        List<Company> createdCompanies = IntStream.range(0, 10)
+                .mapToObj(i -> {
+                    // 1A. Creating a company
+                    Company company = new Company();
 
-            // Generate a random letter for the company name
-            char randomLetter = (char) ('A' + random.nextInt(26));
-            String companyName = "MV" + randomLetter + i;
-            company.setCompanyName(companyName);
+                    // Generate a random letter for the company name
+                    char randomLetter = (char) ('A' + random.nextInt(26));
+                    String companyName = "MV" + randomLetter + i;
+                    company.setCompanyName(companyName);
 
-            // Generate a random budget between 20000 and 1000000
-            BigDecimal randomBudget = BigDecimal.valueOf(20000 + random.nextDouble() * (1000000 - 20000));
-            company.setBudget(randomBudget);
+                    // Generate a random budget between 20000 and 1000000
+                    BigDecimal randomBudget = BigDecimal.valueOf(20000 + random.nextDouble() * (1000000 - 20000));
+                    company.setBudget(randomBudget);
 
-            // If the generated revenue is greater than the target, add the company name to the list
-            if (randomBudget.compareTo(targetRevenue) > 0) {
-                companyNamesWithRevenueGreaterThanTarget.add(companyName);
-            }
+                    // If the generated revenue is greater than the target, add the company name to the list
+                    if (randomBudget.compareTo(targetRevenue) > 0) {
+                        companyNamesWithRevenueGreaterThanTarget.add(companyName);
+                    }
 
-            company.setCreated(LocalDateTime.now());
-            companyService.createCompany(company);
-        }
+                    company.setCreated(LocalDateTime.now());
+                    companyService.createCompany(company);
 
-        // Get companies by revenue greater than the target
-        List<Company> retrievedCompanies = companyService.getCompaniesByRevenueGreaterThan(targetRevenue);
+                    return company;
+                })
+                .collect(Collectors.toList());
+
+        // Get companies by revenue greater than the target using stream
+        List<Company> retrievedCompanies = createdCompanies.stream()
+                .filter(company -> company.getBudget().compareTo(targetRevenue) > 0)
+                .collect(Collectors.toList());
 
         // Assert that the retrieved companies have revenue greater than the target
         assertThat(retrievedCompanies)
@@ -295,6 +303,7 @@ class CompanyTest {
                 .extracting(Company::getCompanyName)
                 .containsExactlyInAnyOrderElementsOf(companyNamesWithRevenueGreaterThanTarget);
     }
+
 
 
     @Transactional

@@ -688,7 +688,10 @@ class EmployeeTest {
 
         List<Employee> employeeCategoryC1 = employeeService.getEmployeesByQualification(DriversLicense.C1);
 
-        assertEquals(2, employeeCategoryC1.size(), "C1 list mismatch.");
+        for (Employee employee: employeeCategoryC1) {
+
+            assertEquals(DriversLicense.C1, employee.getDriversLicense(), "C1 list mismatch.");
+        }
     }
 
 

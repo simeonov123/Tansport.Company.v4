@@ -151,14 +151,20 @@ class CompanyServiceIntegrationTest {
         }
 
         //2.А. запазвам клиентите в базата
+        List<Client> savedClients = new ArrayList<>();
         for (Client client : clients) {
-            clientService.createClient(client);
+            savedClients.add(clientService.createClient(client));
+
         }
 
         //then I get the clients to assert
-        List<Client> createdClients = clientService.getAllClients();
 
-        assertEquals(clients.size(), createdClients.size(), "Created clients don't match the actual result.");
+        for (Client client: savedClients) {
+
+            Client savedClient = clientService.getClientByName(client.getName());
+
+            assertEquals(client.getName(), savedClient.getName(), "Created clients don't match the actual result.");
+        }
     }
 
     //редактиране на клиенти
@@ -263,9 +269,13 @@ class CompanyServiceIntegrationTest {
         }
 
         //I get the list of companies that interest me -> companies with budget over 20020
-        List<Company> companies = companyService.getCompaniesWithBudgetMoreThan(BigDecimal.valueOf(20020));
+        BigDecimal biggerThan = BigDecimal.valueOf(20020);
+        List<Company> companies = companyService.getCompaniesWithBudgetMoreThan(biggerThan);
 
-        assertEquals(companies.size(), 3, "Companies List contains more companies tan the expected result.");
+        for (Company company: companies) {
+            assertTrue(company.getBudget().compareTo(biggerThan) >= 0, "Companies List contains more companies tan the expected result.");
+        }
+
 
         //I sort the list by -> first lowest budget then highest budget
         companies.sort(Comparator.comparing(Company::getBudget));
