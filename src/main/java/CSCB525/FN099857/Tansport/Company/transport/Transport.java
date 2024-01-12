@@ -2,6 +2,7 @@ package CSCB525.FN099857.Tansport.Company.transport;
 
 import CSCB525.FN099857.Tansport.Company.copany.Company;
 import CSCB525.FN099857.Tansport.Company.route.Route;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,7 +37,8 @@ public class Transport {
     /**
      * The company associated with the transport.
      */
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
 

@@ -21,6 +21,7 @@ import CSCB525.FN099857.Tansport.Company.util.DriverRouteDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -90,6 +91,7 @@ public class TestEverythingMethod {
     //Има всички функционалности които са описани в заданието на проекта.
     //Валидирани са данните с анотации
     //Документирани са методите
+
     @Test
     void testEverything() {
         //For debug purposes
@@ -169,7 +171,7 @@ public class TestEverythingMethod {
                     default:
                         System.out.println("Invalid option");
                 }
-                employeeService.createEmployee(employee);
+                employee = employeeService.createEmployee(employee);
                 employeesForCompanyList.add(employee);
                 employees.add(employee);
 
@@ -271,6 +273,11 @@ public class TestEverythingMethod {
                         routes.add(route);
                         routesForCompanyList.add(route);
                         clientCanPayAndRouteIsCreated++;
+
+
+                        Passengers createdPassengers = (Passengers) transportService.getTransportById(passengers.getId());
+                        createdPassengers.setRoute(route);
+                        transportService.updateTransport(createdPassengers);
                     } else {
                         clientCantPayAndRoutHasntBeenCreated++;
                     }
@@ -319,6 +326,10 @@ public class TestEverythingMethod {
                         routes.add(route);
                         routesForCompanyList.add(route);
                         clientCanPayAndRouteIsCreated++;
+
+                        Commodity createdCommodity = (Commodity) transportService.getTransportById(commodity.getId());
+                        createdCommodity.setRoute(route);
+                        transportService.updateTransport(createdCommodity);
                     } else {
                         clientCantPayAndRoutHasntBeenCreated++;
                     }

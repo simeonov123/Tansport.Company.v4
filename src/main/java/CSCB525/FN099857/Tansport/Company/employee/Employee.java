@@ -1,6 +1,7 @@
 package CSCB525.FN099857.Tansport.Company.employee;
 
 import CSCB525.FN099857.Tansport.Company.copany.Company;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,7 @@ public class Employee {
     /**
      * The company to which the employee belongs.
      */
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;

@@ -3,6 +3,7 @@ package CSCB525.FN099857.Tansport.Company.mtv;
 import CSCB525.FN099857.Tansport.Company.copany.Company;
 import CSCB525.FN099857.Tansport.Company.employee.DriversLicense;
 import CSCB525.FN099857.Tansport.Company.route.Route;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -37,7 +38,8 @@ public class MotorisedTransportVehicle {
     /**
      * List of routes associated with the motorized transport vehicle through a many-to-many relationship.
      */
-    @ManyToMany(mappedBy = "vehicles")
+    @JsonIgnore
+    @ManyToMany(mappedBy = "vehicles", fetch = FetchType.LAZY)
     private List<Route> routes;
 
     /**
@@ -56,6 +58,7 @@ public class MotorisedTransportVehicle {
     /**
      * The owning company of the motorized transport vehicle.
      */
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;

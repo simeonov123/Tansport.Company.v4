@@ -5,6 +5,7 @@ import CSCB525.FN099857.Tansport.Company.employee.Employee;
 import CSCB525.FN099857.Tansport.Company.mtv.MotorisedTransportVehicle;
 import CSCB525.FN099857.Tansport.Company.route.Route;
 import CSCB525.FN099857.Tansport.Company.transport.Transport;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -56,25 +57,29 @@ public class Company {
     /**
      * List of employees associated with the company.
      */
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Employee> employees = new ArrayList<>();
 
     /**
      * List of motorized transport vehicles (MTVs) owned by the company.
      */
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MotorisedTransportVehicle> mtvList = new ArrayList<>();
 
     /**
      * List of routes managed by the company.
      */
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Route> routes = new ArrayList<>();
 
     /**
      * List of clients associated with the company through a many-to-many relationship.
      */
-    @ManyToMany
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "company_client",
             joinColumns = @JoinColumn(name = "company_id"),
@@ -88,6 +93,7 @@ public class Company {
     @NotNull(message = "Budget must not be null")
     private BigDecimal budget = BigDecimal.ZERO;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transport> transports = new ArrayList<>();
 
@@ -105,7 +111,7 @@ public class Company {
                 ", created=" + created +
                 ", employees=" + employees.size() +
                 ", mtvList=" + mtvList.size() +
-                ", routes=" + routes +
+                ", routes=" + routes.size() +
                 ", clientsList=" + clientsList.size() +
                 ", budget=" + budget +
                 ", transports=" + transports.size() +

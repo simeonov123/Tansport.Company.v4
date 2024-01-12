@@ -5,6 +5,7 @@ import CSCB525.FN099857.Tansport.Company.copany.Company;
 import CSCB525.FN099857.Tansport.Company.employee.Employee;
 import CSCB525.FN099857.Tansport.Company.mtv.MotorisedTransportVehicle;
 import CSCB525.FN099857.Tansport.Company.transport.Transport;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -38,8 +39,9 @@ public class Route {
     /**
      * The company associated with the route. Required and should not be null.
      */
+    @JsonIgnore
     @NotNull(message = "Company must not be null")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
 
@@ -93,13 +95,14 @@ public class Route {
      * The driver assigned to the route. Required and should not be null.
      */
     @NotNull(message = "Driver must not be null")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "driver_id")
     private Employee driver;
 
     /**
      * The transport associated with the route. Required and should not be null.
      */
+    @JsonIgnore
     @NotNull(message = "Transport must not be null")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transport_id")
@@ -132,17 +135,17 @@ public class Route {
     public String toString() {
         return "Route{" +
                 "id=" + id +
-                ", company=" + company.getId() +
+                ", company=" + (company != null ? company.getId() : null) +
                 ", departureAddress='" + departureAddress + '\'' +
                 ", arrivalAddress='" + arrivalAddress + '\'' +
                 ", departureTime=" + departureTime +
                 ", arrivalTime=" + arrivalTime +
                 ", routePrice=" + routePrice +
                 ", distance=" + distance +
-                ", driver=" + driver.getId() +
-                ", transport=" + transport.getId() +
-                ", vehicle=" + vehicles.size() +
-                ", client=" + client.getId() +
+                ", driver=" + (driver != null ? driver.getId() : null) +
+                ", transport=" + (transport != null ? transport.getId() : null) +
+                ", vehicle=" + (vehicles != null ? vehicles.size() : null) +
+                ", client=" + (client != null ? client.getId() : null) +
                 '}';
     }
 }
